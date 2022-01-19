@@ -1,2 +1,2 @@
-# android-dl
-Demo Library
+# android-bbaall
+Beginner's Beautiful Android Application Learning Library

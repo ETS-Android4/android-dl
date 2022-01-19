@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        applicationId "com.caharkness.demo"
+        minSdkVersion 15
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0.0"
+        buildConfigField "boolean", "PAID", "false"
+        buildConfigField "boolean", "PRO", "false"
+    }
+
+    signingConfigs {
+        debug {
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storeFile file('../dev/debug.keystore')
+            storePassword 'android'
+        }
+
+        release {
+            keyAlias 'editme'
+            keyPassword 'editme'
+            storeFile file('../dev/release.keystore')
+            storePassword 'editme'
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def date = new Date().format('yyyyMMdd')
+                    def name = "${date}_${applicationId}_v${versionName}_debug.apk"
+                    name = name.toLowerCase()
+                    outputFileName = name
+                }
+            }
+        }
+
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def date = new Date().format('yyyyMMdd')
+                    def name = "${date}_${applicationId}_v${versionName}_release.apk"
+                    name = name.toLowerCase()
+                    outputFileName = name
+                }
+            }
+        }
+    }
+
+    flavorDimensions "default"
+    useLibrary "org.apache.http.legacy"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    api project(':Library')
+    api 'org.apache.bcel:bcel:6.0'
+}

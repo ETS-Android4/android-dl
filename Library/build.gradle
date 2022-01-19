@@ -1,0 +1,40 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    lintOptions {
+        disable "ResourceType"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    api 'com.google.android.gms:play-services-maps:18.0.1'
+    api 'com.google.android.gms:play-services-gcm:17.0.0'
+    api 'com.googlecode.mp4parser:isoparser:1.0.5.4'
+    api 'commons-io:commons-io:2.4'
+    api 'com.android.support:multidex:1.0.3'
+}
